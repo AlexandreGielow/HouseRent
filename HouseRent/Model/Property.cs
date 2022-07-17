@@ -9,29 +9,18 @@ namespace HouseRent.Model
     public class Property
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        
+        public string Name { get; set; }        
         public Adress Adress { get; set; }
         public Person Owner { get; set; }
-
         public DateTime? StartRent { get; set; }
         public DateTime? EndRent    { get; set; }
-
         public int Size { get; set; }
-
         public int Rooms  { get; set; }
-
         public bool Furnished { get; set; }
-
         public int Accommodates { get; set; }
-
         public string Description { get; set; }
         public PropertyType Type { get; set; }
-
-        public List<string> Highlights { get; set; }
-        public List<string> RulesAcessibilitiy { get; set; }
-
-
-
+        public List<PropertyHighlights> Highlights { get; set; }
+        public List<PropertyRulesAcessibility> RulesAcessibilitiy { get; set; }
     }
 }
