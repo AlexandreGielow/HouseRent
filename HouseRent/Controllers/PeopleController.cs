@@ -8,156 +8,60 @@ using Microsoft.EntityFrameworkCore;
 using HouseRent.Data;
 using HouseRent.Model;
 
+
 namespace HouseRent.Controllers
 {
+    [ApiController]
+    [Route("api/[Controller]")]
     public class PeopleController : Controller
     {
+
         private readonly HouseRentContext _context;
 
         public PeopleController(HouseRentContext context)
         {
             _context = context;
         }
-
-        // GET: People
-        public async Task<IActionResult> Index()
-        {
-            return _context.People != null ?
-                        View(await _context.People.ToListAsync()) :
-                        Problem("Entity set 'HouseRentContext.People'  is null.");
+        [HttpGet]
+        public async Task<ActionResult<List<Person>>> Get()
+        {            
+            return Ok(await _context.People.ToListAsync());
         }
 
-        // GET: People/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<Person>>> Get(int id)
         {
-            if (id == null || _context.People == null)
+            var person = await _context.People.FindAsync(id);
+            if(person == null)
             {
-                return NotFound();
+                return BadRequest("Person not found");
             }
-
-            var person = await _context.People
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
+            return Ok(person);
         }
 
-        // GET: People/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,SureName,PersonType")] Person person)
+        public async Task<ActionResult<List<Person>>> AddPerson(Person person)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.People.Add(person);
+                _context.SaveChanges();
             }
-            return View(person);
+            var result = await _context.People.ToListAsync();
+            return Ok(result);
         }
 
-        // GET: People/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPut]
+        public async Task<ActionResult<List<Person>>> UpdatePerson(Person person)
         {
-            if (id == null || _context.People == null)
+            var result = await _context.People.Where(p => p.Id == person.Id).ToListAsync();
+            if (result == null)
             {
-                return NotFound();
+                return BadRequest("Person not found");
             }
-
-            var person = await _context.People.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-            return View(person);
+            
+            return Ok(result);
         }
 
-        // POST: People/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SureName,PersonType")] Person person)
-        {
-            if (id != person.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonExists(person.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(person);
-        }
-
-        // GET: People/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.People == null)
-            {
-                return NotFound();
-            }
-
-            var person = await _context.People
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
-        }
-
-        // POST: People/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.People == null)
-            {
-                return Problem("Entity set 'HouseRentContext.People'  is null.");
-            }
-            var person = await _context.People.FindAsync(id);
-            if (person != null)
-            {
-                _context.People.Remove(person);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool PersonExists(int id)
-        {
-            return (_context.People?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }

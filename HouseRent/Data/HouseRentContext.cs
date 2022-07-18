@@ -1,10 +1,15 @@
 ﻿using HouseRent.Model;
+using LinqToDB;
 using Microsoft.EntityFrameworkCore;
 
 namespace HouseRent.Data
 {
     public class HouseRentContext : DbContext
     {
+        public DataContext(DbContextOptions<DataContext> options) : base( options)
+        {
+            
+        }
         public DbSet<Property> Properties { get; set;  }
         public DbSet<PropertyHighlights> PropertyHighlights { get; set; }
         public DbSet<PropertyRulesAcessibility> PropertyRulesAcessibility { get; set; }
