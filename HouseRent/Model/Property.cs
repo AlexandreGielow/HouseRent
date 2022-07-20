@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace HouseRent.Model
 {
@@ -8,9 +9,11 @@ namespace HouseRent.Model
     }
     public class Property
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }        
         public Adress Adress { get; set; }
+        public int PersonId { get; set; }
         public Person Owner { get; set; }
         public DateTime? StartRent { get; set; }
         public DateTime? EndRent    { get; set; }
@@ -20,7 +23,9 @@ namespace HouseRent.Model
         public int Accommodates { get; set; }
         public string Description { get; set; }
         public PropertyType Type { get; set; }
-        public List<PropertyHighlights> Highlights { get; set; }
-        public List<PropertyRulesAcessibility> RulesAcessibilitiy { get; set; }
+        public List<PropertyHighlights>? Highlights { get; set; }
+        public List<PropertyRulesAcessibility>? RulesAcessibilitiy { get; set; }
+        public List<Amenities>? Amenities { get; set; }
+
     }
 }

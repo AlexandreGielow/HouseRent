@@ -6,7 +6,7 @@ namespace HouseRent.Data
 {
     public class HouseRentContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base( options)
+        public HouseRentContext(DbContextOptions<HouseRentContext> options) : base( options)
         {
             
         }

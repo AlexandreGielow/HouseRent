@@ -63,5 +63,9 @@ namespace HouseRent.Controllers
             return Ok(result);
         }
 
+
+        [HttpDelete]
+
+
     }
 }

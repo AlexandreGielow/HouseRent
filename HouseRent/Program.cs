@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Builder;
-using HouseRent.Data;
+
+global using HouseRent.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<HouseRentContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer("Data Source =.\\sqlexpress; Initial Catalog = HouseRent; Persist Security Info = True; User ID = sa; Password = 123; Pooling = False");
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

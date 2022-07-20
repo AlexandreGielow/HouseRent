@@ -1,4 +1,5 @@
-﻿namespace HouseRent.Model
+﻿using System.ComponentModel.DataAnnotations;
+namespace HouseRent.Model
 {
     public enum AmenitiesType
     {
@@ -6,8 +7,12 @@
     }
     public class Amenities
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }        
         public AmenitiesType Type { get; set; }
+        public int PropertyId { get; set; }
+        public Property Property  { get; set; }
+
     }
 }
