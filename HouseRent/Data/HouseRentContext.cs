@@ -13,7 +13,7 @@ namespace HouseRent.Data
         public DbSet<Property> Properties { get; set;  }
         public DbSet<PropertyHighlights> PropertyHighlights { get; set; }
         public DbSet<PropertyRulesAcessibility> PropertyRulesAcessibility { get; set; }
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Address> Adresses { get; set; }
         public DbSet<Amenities> Amenities { get; set; }
         public DbSet<Person> People { get; set; }
 

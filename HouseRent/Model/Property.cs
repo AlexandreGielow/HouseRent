@@ -12,7 +12,7 @@ namespace HouseRent.Model
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }        
-        public Adress Adress { get; set; }
+        public Address Adress { get; set; }
         public int PersonId { get; set; }
         public Person Owner { get; set; }
         public DateTime? StartRent { get; set; }

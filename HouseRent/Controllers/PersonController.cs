@@ -13,12 +13,12 @@ namespace HouseRent.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class PeopleController : Controller
+    public class PersonController : Controller
     {
 
         private readonly HouseRentContext _context;
 
-        public PeopleController(HouseRentContext context)
+        public PersonController(HouseRentContext context)
         {
             _context = context;
         }
@@ -64,8 +64,7 @@ namespace HouseRent.Controllers
         }
 
 
-        [HttpDelete]
-
+     
 
     }
 }
