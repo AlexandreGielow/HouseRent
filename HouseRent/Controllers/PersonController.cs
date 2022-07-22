@@ -39,7 +39,7 @@ namespace HouseRent.Controllers
             return Ok(person);
         }
 
-        [HttpPost]
+        [HttpPost]        
         public async Task<ActionResult<List<Person>>> AddPerson(Person person)
         {
             if (ModelState.IsValid)
@@ -61,10 +61,6 @@ namespace HouseRent.Controllers
             }
             
             return Ok(result);
-        }
-
-
-     
-
+        }     
     }
 }
