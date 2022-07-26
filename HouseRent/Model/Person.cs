@@ -12,7 +12,7 @@ namespace HouseRent.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string SureName  { get; set; }
-        List<Property>? Properties { get; set; } 
+        ICollection<Property>? Properties { get; set; } 
         public PersonType PersonType { get; set; }
         public string Email { get; set; }
     }

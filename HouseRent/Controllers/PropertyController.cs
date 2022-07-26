@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace HouseRent.Controllers
 {
     [ApiController]
@@ -16,15 +17,20 @@ namespace HouseRent.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Property>>> GetActiveProperties()
+        public async Task<ActionResult<ICollection<Property>>> GetActiveProperties()
         {
-            return Ok(await _context.Properties.Where(p => p.Status == PropertyStatus.Active).ToListAsync()) ;
+            return Ok(await _context.Properties.Where(p => p.Status == PropertyStatus.Active)
+                .Include(a => a.Address)
+                .ToListAsync()) ;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Property>>> Get(int id)
+        public async Task<ActionResult<Property>> Get(int id)
         {
-            var Property = await _context.People.FindAsync(id);
+            var Property = await _context.Properties.Include(a => a.Address)
+                .Where(p => p.Id == id)
+                .Include(a => a.Address)
+                .ToListAsync();
             if (Property == null)
             {
                 return BadRequest("Property not found");
@@ -33,21 +39,22 @@ namespace HouseRent.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Property>>> AddProperty(Property property)
+        public async Task<ActionResult<ICollection<Property>>> AddProperty(Property property)
         {
             if (ModelState.IsValid)
             {
                 _context.Properties.Add(property);
                 _context.SaveChanges();
             }
-            var result = await _context.People.ToListAsync();
+            var result = await _context.Properties.ToListAsync();
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Property>>> UpdateProperty(Property Property)
+        public async Task<ActionResult<ICollection<Property>>> UpdateProperty(Property Property)
         {
-            var result = await _context.People.Where(p => p.Id == Property.Id).ToListAsync();
+            var result = await _context.Properties.Where(p => p.Id == Property.Id)                
+                .ToListAsync();
             if (result == null)
             {
                 return BadRequest("Property not found");

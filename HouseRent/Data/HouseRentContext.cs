@@ -10,6 +10,15 @@ namespace HouseRent.Data
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Property>().HasOne(t => t.Address)
+                     .WithOne(t => t.Property)
+                     .HasForeignKey<Address>(t => t.PropertyId);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Property> Properties { get; set;  }
         public DbSet<PropertyHighlights> PropertyHighlights { get; set; }
         public DbSet<PropertyRulesAcessibility> PropertyRulesAcessibility { get; set; }

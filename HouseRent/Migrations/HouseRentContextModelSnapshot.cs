@@ -37,6 +37,14 @@ namespace HouseRent.Migrations
                     b.Property<int>("CountryCode")
                         .HasColumnType("int");
 
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,7 +56,7 @@ namespace HouseRent.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
+                    b.Property<int>("StateCode")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -212,7 +220,7 @@ namespace HouseRent.Migrations
             modelBuilder.Entity("HouseRent.Model.Address", b =>
                 {
                     b.HasOne("HouseRent.Model.Property", "Property")
-                        .WithOne("Adress")
+                        .WithOne("Address")
                         .HasForeignKey("HouseRent.Model.Address", "PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -233,13 +241,13 @@ namespace HouseRent.Migrations
 
             modelBuilder.Entity("HouseRent.Model.Property", b =>
                 {
-                    b.HasOne("HouseRent.Model.Person", "Owner")
+                    b.HasOne("HouseRent.Model.Person", "Person")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("HouseRent.Model.PropertyHighlights", b =>
@@ -266,8 +274,7 @@ namespace HouseRent.Migrations
 
             modelBuilder.Entity("HouseRent.Model.Property", b =>
                 {
-                    b.Navigation("Adress")
-                        .IsRequired();
+                    b.Navigation("Address");
 
                     b.Navigation("Amenities");
 

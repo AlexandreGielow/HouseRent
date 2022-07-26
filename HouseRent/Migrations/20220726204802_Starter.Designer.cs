@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseRent.Migrations
 {
     [DbContext(typeof(HouseRentContext))]
-    [Migration("20220718204250_AddColunasEChaves")]
-    partial class AddColunasEChaves
+    [Migration("20220726204802_Starter")]
+    partial class Starter
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace HouseRent.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HouseRent.Model.Adress", b =>
+            modelBuilder.Entity("HouseRent.Model.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,6 +39,14 @@ namespace HouseRent.Migrations
                     b.Property<int>("CountryCode")
                         .HasColumnType("int");
 
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -50,7 +58,7 @@ namespace HouseRent.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
+                    b.Property<int>("StateCode")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -151,8 +159,14 @@ namespace HouseRent.Migrations
                     b.Property<DateTime?>("StartRent")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -205,11 +219,11 @@ namespace HouseRent.Migrations
                     b.ToTable("PropertyRulesAcessibility");
                 });
 
-            modelBuilder.Entity("HouseRent.Model.Adress", b =>
+            modelBuilder.Entity("HouseRent.Model.Address", b =>
                 {
                     b.HasOne("HouseRent.Model.Property", "Property")
-                        .WithOne("Adress")
-                        .HasForeignKey("HouseRent.Model.Adress", "PropertyId")
+                        .WithOne("Address")
+                        .HasForeignKey("HouseRent.Model.Address", "PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -229,13 +243,13 @@ namespace HouseRent.Migrations
 
             modelBuilder.Entity("HouseRent.Model.Property", b =>
                 {
-                    b.HasOne("HouseRent.Model.Person", "Owner")
+                    b.HasOne("HouseRent.Model.Person", "Person")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("HouseRent.Model.PropertyHighlights", b =>
@@ -262,8 +276,7 @@ namespace HouseRent.Migrations
 
             modelBuilder.Entity("HouseRent.Model.Property", b =>
                 {
-                    b.Navigation("Adress")
-                        .IsRequired();
+                    b.Navigation("Address");
 
                     b.Navigation("Amenities");
 

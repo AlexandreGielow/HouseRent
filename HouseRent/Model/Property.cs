@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace HouseRent.Model
 {
     public enum PropertyType
@@ -17,9 +18,7 @@ namespace HouseRent.Model
         public int Id { get; set; }
         public string Name { get; set; }           
         public PropertyStatus Status { get; set; }
-        public Address Adress { get; set; }
-        public int PersonId { get; set; }
-        public Person Owner { get; set; }
+        public Person Person { get; set; }
         public DateTime? StartRent { get; set; }
         public DateTime? EndRent    { get; set; }
         public double Value { get; set; }
@@ -29,9 +28,11 @@ namespace HouseRent.Model
         public int Accommodates { get; set; }
         public string Description { get; set; }
         public PropertyType Type { get; set; }
-        public List<PropertyHighlights>? Highlights { get; set; }
-        public List<PropertyRulesAcessibility>? RulesAcessibilitiy { get; set; }
-        public List<Amenities>? Amenities { get; set; }
+        
+        public Address? Address { get; set; }
+        public ICollection<PropertyHighlights>? Highlights { get; set; }
+        public ICollection<PropertyRulesAcessibility>? RulesAcessibilitiy { get; set; }
+        public ICollection<Amenities>? Amenities { get; set; }
 
     }
 }

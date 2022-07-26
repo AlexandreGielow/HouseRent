@@ -23,13 +23,13 @@ namespace HouseRent.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> Get()
+        public async Task<ActionResult<ICollection<Person>>> Get()
         {            
             return Ok(await _context.People.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Person>>> Get(int id)
+        public async Task<ActionResult<ICollection<Person>>> Get(int id)
         {
             var person = await _context.People.FindAsync(id);
             if(person == null)
@@ -40,7 +40,7 @@ namespace HouseRent.Controllers
         }
 
         [HttpPost]        
-        public async Task<ActionResult<List<Person>>> AddPerson(Person person)
+        public async Task<ActionResult<ICollection<Person>>> AddPerson(Person person)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace HouseRent.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Person>>> UpdatePerson(Person person)
+        public async Task<ActionResult<ICollection<Person>>> UpdatePerson(Person person)
         {
             var result = await _context.People.Where(p => p.Id == person.Id).ToListAsync();
             if (result == null)
