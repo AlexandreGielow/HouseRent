@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HouseRent.Data;
 using HouseRent.Model;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace HouseRent.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[Controller]")]
     public class PersonController : Controller
@@ -22,12 +23,13 @@ namespace HouseRent.Controllers
         {
             _context = context;
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<ICollection<Person>>> Get()
         {            
             return Ok(await _context.People.ToListAsync());
         }
-
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ICollection<Person>>> Get(int id)
         {
@@ -38,7 +40,7 @@ namespace HouseRent.Controllers
             }
             return Ok(person);
         }
-
+        [AllowAnonymous]
         [HttpPost]        
         public async Task<ActionResult<ICollection<Person>>> AddPerson(Person person)
         {

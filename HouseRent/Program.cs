@@ -1,6 +1,10 @@
 
 global using HouseRent.Data;
+using HouseRent;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +21,32 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Owner", policy => policy.RequireRole("Owner"));
+    options.AddPolicy("Visitor", policy => policy.RequireRole("Visitor"));
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+});
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
@@ -36,12 +66,13 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseAuthorization();
+
 
 app.UseCors("corsapp");
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
-//app.UseCors(prodCorsPolicy);
+
 
 app.MapControllers();
 
