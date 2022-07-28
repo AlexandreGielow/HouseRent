@@ -15,6 +15,6 @@ namespace HouseRent.Model
         ICollection<Property>? Properties { get; set; } 
         public PersonType PersonType { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        public string Password { get; set; }//TODO improve the password storage on DB
     }
 }

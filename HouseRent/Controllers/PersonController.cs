@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HouseRent.Data;
 using HouseRent.Model;
 using Microsoft.AspNetCore.Authorization;
+using HouseRent.Services;
 
 namespace HouseRent.Controllers
 {
@@ -63,6 +58,26 @@ namespace HouseRent.Controllers
             }
             
             return Ok(result);
-        }     
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] Person model)
+        {
+            var person = _context.People.Where(p => (p.Email.ToLower() == model.Email.ToLower()) && (p.Password == model.Password)).FirstOrDefault();
+            if (person == null)
+            {
+                return NotFound("Person not found");
+            }
+            var token = TokenService.GenerateTokens(person);
+            person.Password = null;
+            return new
+            {
+                person,
+                token
+            };
+
+        }
     }
 }
