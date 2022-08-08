@@ -16,5 +16,8 @@ namespace HouseRent.Model
         public int StateCode { get; set; }
         public int PropertyId { get; set; }
         public  Property Property {get; set;}
+        public string AddressName { get; set; }
+        public string Number { get; set; }
+        public string Complement { get; set; }
     }
 }

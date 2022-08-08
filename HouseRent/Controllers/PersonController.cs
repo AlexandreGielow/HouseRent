@@ -17,14 +17,13 @@ namespace HouseRent.Controllers
         public PersonController(HouseRentContext context)
         {
             _context = context;
-        }
-        [AllowAnonymous]
+        }        
         [HttpGet]
         public async Task<ActionResult<ICollection<Person>>> Get()
         {            
             return Ok(await _context.People.ToListAsync());
         }
-        [AllowAnonymous]
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<ICollection<Person>>> Get(int id)
         {
