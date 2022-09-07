@@ -5,7 +5,7 @@ namespace HouseRent.Model
 {
     public enum AmenitiesType
     {
-        Kitchen, Washing, Technology ,Parking, Facilities
+        Kitchen, Washing, Bathing, Technology ,ParkingFacilities
     }
     public class Amenities
     {

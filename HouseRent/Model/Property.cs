@@ -34,5 +34,7 @@ namespace HouseRent.Model
         public ICollection<PropertyRulesAcessibility>? RulesAcessibilitiy { get; set; }
         public ICollection<Amenities>? Amenities { get; set; }
 
+        public ICollection<Photos>? Photos { get; set; }
+
     }
 }
