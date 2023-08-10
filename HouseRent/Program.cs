@@ -1,6 +1,8 @@
 
 global using HouseRent.Data;
 using HouseRent;
+using HouseRent.src.Application.Service;
+using HouseRent.src.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,10 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//builder.Services.AddTransient<IPropertyService, PropertyService>();
 builder.Services.AddDbContext<HouseRentContext>(options =>
 {
     options.UseSqlServer("Data Source =.\\sqlexpress; Initial Catalog = HouseRent; Persist Security Info = True; User ID = sa; Password = 123; Pooling = False");
 });
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

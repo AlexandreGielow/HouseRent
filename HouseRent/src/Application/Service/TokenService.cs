@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace HouseRent.Services
+namespace HouseRent.src.Application.Service
 {
     public static class TokenService
     {

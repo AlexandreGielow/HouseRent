@@ -10,7 +10,6 @@ namespace HouseRent.Data
         {
             
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Property>().HasOne(t => t.Address)
@@ -18,7 +17,6 @@ namespace HouseRent.Data
                      .HasForeignKey<Address>(t => t.PropertyId);
             base.OnModelCreating(modelBuilder);
         }
-
         public DbSet<Property> Properties { get; set;  }
         public DbSet<PropertyHighlights> PropertyHighlights { get; set; }
         public DbSet<PropertyRulesAcessibility> PropertyRulesAcessibility { get; set; }
@@ -28,7 +26,7 @@ namespace HouseRent.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=HouseRent;Persist Security Info=True;User ID=sa;Password=123;Pooling=False");
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HouseRent;Persist Security Info=True;User ID=sa;Password=123;Pooling=False;TrustServerCertificate=true");
         }
     }
 }
