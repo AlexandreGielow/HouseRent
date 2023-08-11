@@ -2,6 +2,7 @@
 global using HouseRent.Data;
 using HouseRent;
 using HouseRent.src.Application.Service;
+using HouseRent.src.Infrastructure.Middlewares;
 using HouseRent.src.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -15,15 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//builder.Services.AddTransient<IPropertyService, PropertyService>();
 builder.Services.AddDbContext<HouseRentContext>(options =>
 {
     options.UseSqlServer("Data Source =.\\sqlexpress; Initial Catalog = HouseRent; Persist Security Info = True; User ID = sa; Password = 123; Pooling = False");
 });
-builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
-builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
+
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -71,19 +73,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
-
-
 app.UseCors("corsapp");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
-
 app.MapControllers();
-
 app.Run();

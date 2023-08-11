@@ -11,7 +11,7 @@ namespace HouseRent.src.Infrastructure.Repositories
 
         Person UpdatePerson(Person person);
 
-        Person AuthenticateAsync(Person person);
+        Person AuthenticateAsync([FromBody] Person person);
 
     }
 }

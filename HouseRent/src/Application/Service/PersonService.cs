@@ -28,21 +28,21 @@ namespace HouseRent.src.Application.Service
             //aqui posso fazer uma validações antes de chamar, criar e etc..
             return _repository.AddPerson(p);
         }
-        public ActionResult<dynamic> Authenticate(Person person)
+        public ActionResult<dynamic> Authenticate([FromBody] Person person)
         {
             Person p = _repository.AuthenticateAsync(person);
             if (p != null)
             {
                 var token = TokenService.GenerateTokens(p);
-                person.Password = null;
+                p.Password = "";
                 return new
                 {
-                    person,
+                    p,
                     token
                 };
             }
             else
-                return null;
+                return "";
         }
     }
 }

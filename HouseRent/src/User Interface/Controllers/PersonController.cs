@@ -11,6 +11,10 @@ namespace HouseRent.Controllers
     public class PersonController : Controller
     {
         private readonly IPersonService _personService;
+        public PersonController(IPersonService personService)
+        {
+            _personService = personService;
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ICollection<Person>>> Get(int id)
@@ -29,19 +33,11 @@ namespace HouseRent.Controllers
         {            
             return Ok(_personService.UpdatePerson(person));
         }
-
-
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] Person model)
+        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] Person person)
         {
-            _personService.Authenticate(model);
-            return new
-            {
-                //person,
-               // token
-            };
-
+            return Ok(_personService.Authenticate(person));           
         }
     }
 }

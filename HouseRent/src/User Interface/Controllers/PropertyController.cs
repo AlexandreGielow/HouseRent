@@ -16,7 +16,6 @@ namespace HouseRent.Controllers
         public PropertyController(IPropertyService propertyService)
         {
             _propertyService = propertyService;
-
         }
 
         [AllowAnonymous]

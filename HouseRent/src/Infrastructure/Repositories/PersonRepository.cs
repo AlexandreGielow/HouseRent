@@ -43,9 +43,9 @@ namespace HouseRent.src.Infrastructure.Repositories
 
             return result;
         }
-        public  Person AuthenticateAsync([FromBody] Person model)
+        public  Person AuthenticateAsync([FromBody] Person per)
         {
-            var person = _context.People.Where(p => (p.Email.ToLower() == model.Email.ToLower()) && (p.Password == model.Password)).FirstOrDefault();
+            var person = _context.People.Where(p => (p.Email.ToLower() == per.Email.ToLower()) && (p.Password == per.Password)).FirstOrDefault();
             if (person == null)
             {
                 return null;
@@ -54,8 +54,6 @@ namespace HouseRent.src.Infrastructure.Repositories
             {
                 return person;
             }
-
         }
-
     }
 }
