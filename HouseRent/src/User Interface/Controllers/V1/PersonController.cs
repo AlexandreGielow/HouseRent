@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using HouseRent.Model;
+using HouseRent.src.Domain.Model.Person;
 using Microsoft.AspNetCore.Authorization;
 using HouseRent.src.Application.Service;
 using HouseRent.src.User_Interface.Contracts.V1;
+using HouseRent.src.User_Interface.Contracts.Requests;
 
 namespace HouseRent.Controllers
 {
@@ -20,7 +21,12 @@ namespace HouseRent.Controllers
         [HttpGet(ApiRoutes.PersonRoutes.GetPerson+"/{id}")]
         public async Task<ActionResult<ICollection<Person>>> Get(int id)
         {
-            return Ok(_personService.GetPersonById(id));
+            var person = _personService.GetPersonById(id);
+            if (person == null)
+            {
+                return NotFound(); 
+            }
+            return Ok(person);
         }
         [AllowAnonymous]
         [HttpPost(ApiRoutes.PersonRoutes.PostPerson)]        
@@ -34,6 +40,14 @@ namespace HouseRent.Controllers
         {            
             return Ok(_personService.UpdatePerson(person));
         }
+
+        [AllowAnonymous]
+        [HttpPost(ApiRoutes.PersonRoutes.RegisterPerson)]
+        public async Task<ActionResult<dynamic>> RegisterPerson([FromBody] PersonRegistrationRequest user)
+        {
+            return Ok();//Implement the USer add on DB
+        }
+
         [AllowAnonymous]
         [HttpPost(ApiRoutes.PersonRoutes.AuthPerson)]
         public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] Person person)

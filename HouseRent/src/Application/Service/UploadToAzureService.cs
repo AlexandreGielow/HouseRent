@@ -1,5 +1,5 @@
 ﻿using Azure.Storage.Blobs;
-using HouseRent.Model;
+using HouseRent.src.Domain.Model.Property;
 
 namespace HouseRent.src.Application.Service
 {

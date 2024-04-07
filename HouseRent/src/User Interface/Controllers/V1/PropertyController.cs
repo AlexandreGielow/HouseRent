@@ -1,4 +1,4 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Property;
 using HouseRent.src.Application.Service;
 using HouseRent.src.User_Interface.Contracts.Requests;
 using HouseRent.src.User_Interface.Contracts.V1;
@@ -38,7 +38,12 @@ namespace HouseRent.Controllers
         [HttpGet(ApiRoutes.PropertiesRoutes.GetFilteredProperties+"/{id}")]
         public async Task<ActionResult<Property>> Get(int id)
         {
-            return Ok(_propertyService.GetPropertiesById(id));
+            var property = _propertyService.GetPropertiesById(id);
+            if (property == null)
+            {
+                return NotFound();
+            }
+            return Ok(property);
         }
 
         [HttpPost(ApiRoutes.PropertiesRoutes.PostPropertioes)]

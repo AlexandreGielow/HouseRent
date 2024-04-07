@@ -1,4 +1,4 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Person;
 using HouseRent.src.Application.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +22,16 @@ namespace HouseRent.src.Infrastructure.Repositories
             return person;
         }
 
+        public Person GetByEmail(string email)
+        {
+            var person = _context.People.Where(p => p.Email == email).First();
+            if (person == null)
+            {
+                return null;
+            }
+            return person;
+        }
+
         public  Person AddPerson(Person person)
         {
             if (ModelState.IsValid)
@@ -33,13 +43,16 @@ namespace HouseRent.src.Infrastructure.Repositories
             return result;
         }
 
-        public  Person UpdatePerson(Person person)
+        public Person? UpdatePerson(Person person)
         {
             var result = _context.People.Where(p => p.Id == person.Id).First();
             if (result == null)
             {
                 return null;
             }
+            _context.Update(person);
+            _context.SaveChanges();
+            result = _context.People.Where(p => p.Id == person.Id).First();
 
             return result;
         }

@@ -1,4 +1,5 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Person;
+using HouseRent.src.Domain.Model.Property;
 using LinqToDB;
 using Microsoft.EntityFrameworkCore;
 

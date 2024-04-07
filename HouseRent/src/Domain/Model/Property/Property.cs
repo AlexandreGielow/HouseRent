@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-
-namespace HouseRent.Model
+namespace HouseRent.src.Domain.Model.Property
 {
     public enum PropertyType
     {
@@ -10,30 +8,30 @@ namespace HouseRent.Model
     }
     public enum PropertyStatus
     {
-        Active,Inactive,Expired
+        Active, Inactive, Expired
     }
 
     public enum RentalType
     {
-        LongTerm,ShortTerm
+        LongTerm, ShortTerm
     }
     public class Property
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }   
+        public string Name { get; set; }
         public RentalType RentalType { get; set; }
         public PropertyStatus Status { get; set; }
-        public Person Person { get; set; }
+        public Domain.Model.Person.Person Person { get; set; }
         public DateTime? StartRent { get; set; }
-        public DateTime? EndRent    { get; set; }
+        public DateTime? EndRent { get; set; }
         public double Value { get; set; }
         public int Size { get; set; }
-        public int Rooms  { get; set; }
+        public int Rooms { get; set; }
         public bool Furnished { get; set; }
         public int Accommodates { get; set; }
         public string Description { get; set; }
-        public PropertyType Type { get; set; }        
+        public PropertyType Type { get; set; }
         public Address? Address { get; set; }
         public ICollection<PropertyHighlights>? Highlights { get; set; }
         public ICollection<PropertyRulesAcessibility>? RulesAcessibilitiy { get; set; }

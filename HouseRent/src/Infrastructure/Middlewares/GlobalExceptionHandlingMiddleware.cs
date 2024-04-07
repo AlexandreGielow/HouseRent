@@ -39,8 +39,7 @@ namespace HouseRent.src.Infrastructure.Middlewares
 
                 await context.Response.WriteAsync(json);
 
-                context.Response.ContentType = "application/json"; 
-
+                context.Response.ContentType = "application/json";
             }
         }
     }

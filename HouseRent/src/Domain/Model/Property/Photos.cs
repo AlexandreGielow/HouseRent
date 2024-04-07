@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HouseRent.Model
+namespace HouseRent.src.Domain.Model.Property
 {
     public class Photos
     {

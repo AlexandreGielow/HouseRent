@@ -1,5 +1,6 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Property;
 using HouseRent.src.User_Interface.Contracts.Requests;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HouseRent.src.Infrastructure.Repositories
 {
@@ -8,7 +9,7 @@ namespace HouseRent.src.Infrastructure.Repositories
         ICollection<Property>  GetActiveProperties();
         ICollection<Property> GetFilteredProperties(GetPropertiesQuery filter);
         Property GetProperty(int id);
-        Property AddProperty(Property property);
-        Property UpdateProperty(Property Property);
+        Property AddProperty([FromBody] Property property);
+        Property? UpdateProperty([FromBody] Property Property);
     }
 }

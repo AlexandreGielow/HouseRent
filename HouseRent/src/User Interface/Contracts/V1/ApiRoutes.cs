@@ -19,7 +19,9 @@
             public const string GetPerson = $"{Base}/Person";
             public const string PostPerson = $"{Base}/Person";
             public const string PutPerson = $"{Base}/Person";
+            public const string RegisterPerson = $"{Base}/Person/Register";
             public const string AuthPerson = $"{Base}/Person/Authenticate";
+
 
         }
     }

@@ -1,4 +1,4 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Property;
 using HouseRent.src.User_Interface.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +48,7 @@ namespace HouseRent.src.Infrastructure.Repositories
             return result;
         }
 
-        public Property UpdateProperty(Property Property)
+        public Property? UpdateProperty(Property Property)
         {
             var result = _context.Properties.Where(p => p.Id == Property.Id)
                 .ToList().Last();
@@ -56,6 +56,9 @@ namespace HouseRent.src.Infrastructure.Repositories
             {
                 return null;
             }
+            _context.Update(Property);
+            _context.SaveChanges();
+            result = _context.Properties.ToList().Last();
             return result;
         }
 

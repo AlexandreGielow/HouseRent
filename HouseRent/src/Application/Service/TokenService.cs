@@ -1,4 +1,4 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Person;
 using Microsoft.IdentityModel.Tokens;
 
 using System.IdentityModel.Tokens.Jwt;

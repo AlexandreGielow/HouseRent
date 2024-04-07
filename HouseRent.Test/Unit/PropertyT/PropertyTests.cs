@@ -1,13 +1,8 @@
 ﻿using FakeItEasy;
-using HouseRent.src.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HouseRent.src.Domain.Model.Property;
 using Xunit;
 
-using HouseRent.Model;
+using HouseRent.src.Domain.Model.Person;
 using HouseRent.src.Application.Service;
 using FluentAssertions;
 

@@ -1,4 +1,4 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Property;
 using HouseRent.src.Infrastructure.Repositories;
 using HouseRent.src.User_Interface.Contracts.Requests;
 

@@ -1,4 +1,4 @@
-﻿using HouseRent.Model;
+﻿using HouseRent.src.Domain.Model.Property;
 
 namespace HouseRent.src.User_Interface.Contracts.Requests
 {
