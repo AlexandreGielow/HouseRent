@@ -1,5 +1,6 @@
 ﻿using HouseRent.Model;
 using HouseRent.src.Infrastructure.Repositories;
+using HouseRent.src.User_Interface.Contracts.Requests;
 
 
 namespace HouseRent.src.Application.Service
@@ -23,8 +24,10 @@ namespace HouseRent.src.Application.Service
             //aqui posso fazer uma validações antes de chamar, criar e etc..
             return _repository.GetProperty(i);
         }
-        public ICollection<Property> GetPropertiesByFilter(string f)
+        public ICollection<Property> GetPropertiesByFilter(GetPropertiesQuery f)
         {
+            
+            
             //aqui posso fazer uma validações antes de chamar, criar e etc..
             return _repository.GetFilteredProperties(f);
         }
@@ -38,6 +41,17 @@ namespace HouseRent.src.Application.Service
         {
             //aqui posso fazer uma validações antes de chamar, criar e etc..
             return _repository.UpdateProperty(property);
+        }
+
+        public double CalculateRentalTax (Property property)
+        {
+            if (property.RentalType == RentalType.LongTerm){
+                return property.Value * 0.05;
+            }
+            else
+            {
+                return property.Value * 0.08;
+            }
         }
 
     }

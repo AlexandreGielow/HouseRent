@@ -1,5 +1,7 @@
 ﻿using HouseRent.Model;
 using HouseRent.src.Application.Service;
+using HouseRent.src.User_Interface.Contracts.Requests;
+using HouseRent.src.User_Interface.Contracts.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +10,7 @@ namespace HouseRent.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("")]
     public class PropertyController : Controller
     {
         private readonly IPropertyService _propertyService;
@@ -19,33 +21,33 @@ namespace HouseRent.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet(ApiRoutes.PropertiesRoutes.GetProperties)]
         public async Task<ActionResult<ICollection<Property>>> GetActiveProperties()
         {
             return Ok(_propertyService.GetProperties());
         }
 
         [AllowAnonymous]
-        [HttpGet("/api/Property/search/{filter}")]
-        public async Task<ActionResult<ICollection<Property>>> GetFilteredProperties(string filter)
+        [HttpGet(ApiRoutes.PropertiesRoutes.GetFilteredProperties)]
+        public async Task<ActionResult<ICollection<Property>>> GetFilteredProperties(GetPropertiesQuery filter)
         {
             return Ok(_propertyService.GetPropertiesByFilter(filter));
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet(ApiRoutes.PropertiesRoutes.GetFilteredProperties+"/{id}")]
         public async Task<ActionResult<Property>> Get(int id)
         {
             return Ok(_propertyService.GetPropertiesById(id));
         }
 
-        [HttpPost]
+        [HttpPost(ApiRoutes.PropertiesRoutes.PostPropertioes)]
         public async Task<ActionResult<ICollection<Property>>> AddProperty(Property property)
         {
             return Ok(_propertyService.AddProperty(property));
         }
 
-        [HttpPut]
+        [HttpPut(ApiRoutes.PropertiesRoutes.PutPropertioes)]
         public async Task<ActionResult<ICollection<Property>>> UpdateProperty(Property property)
         {
             return Ok(_propertyService.UpdateProperty(property));

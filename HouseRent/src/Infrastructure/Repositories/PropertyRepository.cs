@@ -1,4 +1,5 @@
 ﻿using HouseRent.Model;
+using HouseRent.src.User_Interface.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,10 +18,10 @@ namespace HouseRent.src.Infrastructure.Repositories
                 .Include(a => a.Address)
                 .ToList();
         }
-        public ICollection<Property> GetFilteredProperties(string filter)
+        public ICollection<Property> GetFilteredProperties(GetPropertiesQuery filter)
         {
             return  _context.Properties
-                .Where(p => p.Status == PropertyStatus.Active && (p.Name.Contains(filter) || p.Address.City.Contains(filter)))
+                .Where(p => p.Status == PropertyStatus.Active && (p.Address.City.Contains(filter.City)))
                 .Include(a => a.Address)
                 .ToList();
         }

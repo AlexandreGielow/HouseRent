@@ -19,5 +19,6 @@ namespace HouseRent.Model
         public string AddressName { get; set; }
         public string Number { get; set; }
         public string Complement { get; set; }
+        public string Neighborhood { get; set; }
     }
 }

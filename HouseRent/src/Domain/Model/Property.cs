@@ -12,11 +12,17 @@ namespace HouseRent.Model
     {
         Active,Inactive,Expired
     }
+
+    public enum RentalType
+    {
+        LongTerm,ShortTerm
+    }
     public class Property
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }           
+        public string Name { get; set; }   
+        public RentalType RentalType { get; set; }
         public PropertyStatus Status { get; set; }
         public Person Person { get; set; }
         public DateTime? StartRent { get; set; }
